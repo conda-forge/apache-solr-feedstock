@@ -1,4 +1,4 @@
-{% set version = "9.7.0" %}
+{% set version = "9.8.0" %}
 package:
   name: apache-solr
   version: {{ version }}  # Use the specific version you want to package
