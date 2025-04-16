@@ -21,7 +21,6 @@ requirements:
 
 test:
   commands:
-    - solr -h
     - solr start -h
     - solr stop -h
 
