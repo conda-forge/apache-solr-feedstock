@@ -1,11 +1,11 @@
-{% set version = "9.7.0" %}
+{% set version = "9.8.1" %}
 package:
   name: apache-solr
   version: {{ version }}  # Use the specific version you want to package
 
 source:
   - url: https://github.com/apache/solr/archive/refs/tags/releases/solr/{{ version }}.tar.gz
-    sha256: 1fc2423912f937a55a41c737a43f65a750785d81c68980725ca50f8373515c31
+    sha256: b4e254602a5ded7b81eaba2ad8754e9022a7d9cc98fbe86407111f97a3185246
 
 build:
   number: 0
@@ -21,8 +21,8 @@ requirements:
 
 test:
   commands:
-    - solr start -e cloud -noprompt
-    - solr stop -all
+    - solr start -h
+    - solr stop -h
 
 about:
   home: https://solr.apache.org/
@@ -36,3 +36,5 @@ about:
 extra:
   recipe-maintainers:
     - antarcticrainforest
+    - mo-dkrz
+    - karion
