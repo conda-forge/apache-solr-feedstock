@@ -1,11 +1,11 @@
-{% set version = "9.10.0" %}
+{% set version = "9.10.1" %}
 package:
   name: apache-solr
   version: {{ version }}  # Use the specific version you want to package
 
 source:
   - url: https://github.com/apache/solr/archive/refs/tags/releases/solr/{{ version }}.tar.gz
-    sha256: f6540d3825a113de9b9d79ad66e26d5a344b6d9288938fa2d5c2747fc41fd58a
+    sha256: aa8a3517f7abc1d1b7ac86e361ee6ad4b1431e6d4151fca72e3439af687c132b
 
 build:
   number: 0
