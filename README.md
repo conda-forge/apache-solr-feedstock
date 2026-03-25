@@ -146,5 +146,5 @@ Feedstock Maintainers
 
 * [@antarcticrainforest](https://github.com/antarcticrainforest/)
 * [@karion](https://github.com/karion/)
-* [@mo-dkrz](https://github.com/mo-dkrz/)
+* [@tropicrainforest](https://github.com/tropicrainforest/)
 
