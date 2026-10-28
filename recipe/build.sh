@@ -2,13 +2,17 @@
 
 set -o xtrace -o nounset -o pipefail -o errexit
 
-# Patch build.gradle to add dependency-license-report plugin
-sed -i "s/id 'base'/id 'base'\nid 'com.github.jk1.dependency-license-report' version 'latest.release'/" build.gradle
-
-# Build from source with gradle and download third-party licenses
 export JAVA_OPTS="-XX:ReservedCodeCacheSize=64m"
-./gradlew dev
-./gradlew generateLicenseReport
+
+# Use node installed in the current environment in PATH
+sed -i 's/download = true/download = false/' gradle/node.gradle
+
+# Build Solr without the dependency license.
+./gradlew --no-daemon --no-parallel --max-workers=1 \
+  -Dorg.gradle.internal.http.socketTimeout=180000 \
+  -Dorg.gradle.internal.http.connectionTimeout=180000 \
+  -Dorg.gradle.internal.repository.max.retries=5 \
+  dev
 
 # Copy all files from build snapshot to ${PREFIX}/libexec/solr
 # and symlink wrapper scripts to ${PREFIX}/bin
