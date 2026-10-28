@@ -4,9 +4,15 @@ set -o xtrace -o nounset -o pipefail -o errexit
 
 export JAVA_OPTS="-XX:ReservedCodeCacheSize=64m"
 
-# Build Solr without the dependency license report step.
-# The package does not need to generate third-party license reports during conda packaging.
-./gradlew --no-daemon --no-parallel --max-workers=1 dev
+# Use node installed in the current environment in PATH
+sed -i 's/download = true/download = false/' gradle/node.gradle
+
+# Build Solr without the dependency license.
+./gradlew --no-daemon --no-parallel --max-workers=1 \
+  -Dorg.gradle.internal.http.socketTimeout=180000 \
+  -Dorg.gradle.internal.http.connectionTimeout=180000 \
+  -Dorg.gradle.internal.repository.max.retries=5 \
+  dev
 
 # Copy all files from build snapshot to ${PREFIX}/libexec/solr
 # and symlink wrapper scripts to ${PREFIX}/bin

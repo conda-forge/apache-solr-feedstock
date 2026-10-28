@@ -15,6 +15,7 @@ requirements:
   build:
     - sed
     - openjdk =21
+    - nodejs 22.*
 
   run:
     - openjdk >=11  # Solr requires Java to run
