@@ -8,12 +8,13 @@ source:
     sha256: 3172bf6cce65ed8cac5a928cb390239e8b8a9306d5aeeee2831753dd12c825e7
 
 build:
-  number: 0
+  number: 1
   noarch: generic
 
 requirements:
   build:
     - sed
+    - zip
     - openjdk =21
     - nodejs 22.*
 
@@ -24,6 +25,10 @@ test:
   commands:
     - solr start -h
     - solr stop -h
+    # Regression guard for the google-api-client vendored CA trust store stripped
+    # in build.sh: make sure it's actually gone, not silently still shipping.
+    - test -n "$(find ${PREFIX}/libexec/apache-solr -name 'google-api-client-*.jar')"
+    - 'test -z "$(find ${PREFIX}/libexec/apache-solr -name "google-api-client-*.jar" -exec jar tf {} \; | grep -E "com/google/api/client/googleapis/google\.(p12|jks)")"'
 
 about:
   home: https://solr.apache.org/
@@ -37,3 +42,4 @@ extra:
     - antarcticrainforest
     - tropicrainforest
     - karion
+    - pb01ka
